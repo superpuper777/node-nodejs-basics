@@ -1,5 +1,14 @@
+import { env } from 'node:process';
+
+const prefix = 'RSS_';
+const arr = [];
 const parseEnv = () => {
-    // Write your code here 
+  for (let key in env) {
+    if (key.startsWith(prefix)) {
+      arr.push(`${key}=${env[key]}`);
+    }
+  }
+  console.log(arr.join('; '));
 };
 
 parseEnv();
