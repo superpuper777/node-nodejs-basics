@@ -1,10 +1,7 @@
 import { rm } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { getFilePath } from '../helpers.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const filePath = join(__dirname, 'files', 'fileToRemove.txt');
+const filePath = getFilePath(import.meta.url, 'files', 'fileToRemove.txt');
 
 const remove = async () => {
   try {

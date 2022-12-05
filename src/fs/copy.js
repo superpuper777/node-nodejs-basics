@@ -1,29 +1,20 @@
-import { cp } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { copyFile, mkdir, readdir } from 'node:fs/promises';
+import { getFilePath } from '../helpers.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const folderPath = join(__dirname, 'files');
-const targetFolderPath = join(__dirname, 'files_copy');
-
-console.log(__dirname, folderPath);
+const folderPath = getFilePath(import.meta.url, 'files');
+const targetFolderPath = getFilePath(import.meta.url, 'files_copy');
 
 const copy = async () => {
   try {
-    if (existsSync(targetFolderPath)) {
-      throw new Error('FS operation failed');
-    }
-    await cp(
-      folderPath,
-      targetFolderPath,
-      { recursive: true },
-      { force: false },
-      { errorOnExist: true }
+    await mkdir(targetFolderPath);
+    const files = await readdir(folderPath);
+    await Promise.all(
+      files.map((file) =>
+        copyFile(`${folderPath}/${file}`, `${targetFolderPath}/${file}`)
+      )
     );
   } catch (err) {
-    console.error(err);
+    throw new Error('FS operation failed');
   }
 };
 

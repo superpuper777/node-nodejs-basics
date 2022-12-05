@@ -6,7 +6,6 @@ import { dirname, join } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const folderPath = join(__dirname, 'files');
 const oldFileNamePath = join(__dirname, 'files', 'wrongFilename.txt');
 const newFileNamePath = join(__dirname, 'files', 'properFilename.md');
 

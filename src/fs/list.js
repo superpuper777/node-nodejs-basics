@@ -1,11 +1,8 @@
 import { readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { getFilePath } from '../helpers.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const folderPath = join(__dirname, 'files');
+const folderPath = getFilePath(import.meta.url, 'files');
 const fileList = [];
 
 const list = async () => {

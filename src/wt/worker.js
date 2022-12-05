@@ -1,4 +1,3 @@
-// n should be received from main thread
 import { workerData, parentPort } from 'node:worker_threads';
 
 const nthFibonacci = (n) =>

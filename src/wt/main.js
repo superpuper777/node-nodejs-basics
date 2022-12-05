@@ -1,14 +1,11 @@
 import { Worker } from 'node:worker_threads';
 import { cpus } from 'node:os';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { getFilePath } from '../helpers.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const fileName = join(__dirname, 'worker.js');
+const filePath = getFilePath(import.meta.url, 'worker.js');
 const CPUcores = cpus().length;
 
-const worker = new Worker(fileName, {
+const worker = new Worker(filePath, {
   workerData: 8,
 });
 
@@ -22,7 +19,7 @@ const createWorkers = (cores) => {
   for (let i = 0; i < cores; i++) {
     promises.push(
       new Promise((resolve, reject) => {
-        const worker = new Worker(fileName, {
+        const worker = new Worker(filePath, {
           workerData: num++,
         });
         worker.on('message', (data) => resolve({ status: 'resolved', data }));

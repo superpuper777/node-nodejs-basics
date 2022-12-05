@@ -1,9 +1,8 @@
-// const path = require('path');
 import * as path from 'node:path';
 import { release, version } from 'node:os';
 import { createServer as createServerHttp } from 'node:http';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
 
 import c from './files/c.js';
 import a from './files/a.json' assert { type: 'json' };
